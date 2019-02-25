@@ -17,9 +17,8 @@ label{
 }
 
 input,select{
-    width: 100%;
+    flex-grow: 1;
     height: 30px;
-
 }
 
 .buttons{

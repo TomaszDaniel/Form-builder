@@ -1,6 +1,5 @@
 *{
   margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 #root{
@@ -10,4 +9,8 @@
 .addInput{
   width: 100px;
   height: 35px;
+}
+
+ul{
+  list-style: none;
 }

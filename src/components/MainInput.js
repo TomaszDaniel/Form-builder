@@ -8,9 +8,16 @@ class MainInput extends Component {
         e.preventDefault();
         this.props.delete(this.props.item);
     }
+
+    handleAddInput = (e) => {
+        e.preventDefault();
+        console.log(this.props.item);
+
+        this.props.add(this.props.item)
+    }
     render() {
         return (
-            <form>
+            <form className="main_input">
                 <div>
                     <label htmlFor="question"> Question  </label>
                     <input type="text" id="question" name="question" />
@@ -24,7 +31,7 @@ class MainInput extends Component {
                     </select>
                 </div>
                 <div className="buttons">
-                    <button className="addSubInput">Add Sub-Input</button>
+                    <button className="addSubInput" onClick={(e) => this.handleAddInput(e)}>Add Sub-Input</button>
                     <button className="delete" onClick={(e) => this.handleDelete(e)}>Delete</button>
                 </div>
             </form >

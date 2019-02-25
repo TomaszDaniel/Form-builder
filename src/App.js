@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MainInput from './components/MainInput';
+import SubInput from './components/SubInput';
 import './App.css';
 
 class App extends Component {
@@ -20,8 +21,7 @@ class App extends Component {
 
   handleDelete = (item) => {
     console.log(item);
-    let data = this.state.data;
-    console.log(data[0]);
+    const data = this.state.data;
     for (let i = 0; i < data.length; i++) {
       if (item === data[i]) {
         data.splice(i, 1)
@@ -32,14 +32,64 @@ class App extends Component {
     })
   }
 
+  handleAddInput = (item) => {
+    const data = this.state.data;
+    for (let i = 0; i < data.length; i++) {
+      if (item === data[i] && data[i].subInputs === undefined) {
+        data[i].subInputs = []
+        data[i].subInputs.push({
+          id: Math.floor(Math.random() * 99999999)
+        })
+      } else if (item === data[i]) {
+        data[i].subInputs.push({
+          id: Math.floor(Math.random() * 99999999)
+        })
+      }
+    }
+
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].subInputs !== undefined) {
+        data[i].subInputs.forEach(sub => {
+          if (sub.id === item.id && sub.subInputs === undefined) {
+            console.log(sub);
+            sub.subInputs = []
+            sub.subInputs.push({
+              id: Math.floor(Math.random() * 99999999)
+            })
+          } else if (item.id === sub.id) {
+            sub.subInputs.push({
+              id: Math.floor(Math.random() * 99999999)
+            })
+          }
+        })
+      }
+    }
+
+
+    this.setState({
+      data
+    })
+  }
+
   render() {
+    console.log(this.state);
+
     return (
       <>
         {(this.state.data.length > 0) ? (
           <ul>{
             this.state.data.map(item => (
               <li key={item.id}>
-                <MainInput delete={this.handleDelete} item={item} />
+                <MainInput delete={this.handleDelete} add={this.handleAddInput} item={item} />
+
+                {(item.subInputs !== undefined) ? (
+                  <ul> {
+                    item.subInputs.map(subItem => (
+                      <li key={subItem.id}>
+                        <SubInput delete={this.handleDelete} add={this.handleAddInput} subItem={subItem} item={item} />
+                      </li>
+                    ))}
+                  </ul>) : null}
               </li>
             ))}
           </ul>
