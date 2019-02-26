@@ -20,14 +20,17 @@ class App extends Component {
   }
 
   handleDelete = (item) => {
-    console.log(item);
-
     const data = this.state.data;
-    for (let i = 0; i < data.length; i++) {
-      if (item === data[i]) {
-        data.splice(i, 1)
+    const findObjToDelete = (data) => {
+      for (let k in data) {
+        if (data[k].id === item.id) {
+          data.splice(k, 1)
+        } else {
+          findObjToDelete(data[k])
+        }
       }
     }
+    findObjToDelete(data)
     this.setState({
       data
     })
@@ -35,7 +38,7 @@ class App extends Component {
 
   handleAddInput = (item) => {
     const data = this.state.data;
-    const findValue = (data) => {
+    const findObj = (data) => {
       for (let k in data) {
         if (data[k].id === item.id) {
           const obj = {
@@ -48,11 +51,11 @@ class App extends Component {
             data[k].subInputs.push(obj)
           }
         } else {
-          findValue(data[k])
+          findObj(data[k])
         }
       }
     }
-    findValue(data)
+    findObj(data)
     this.setState({
       data
     })
@@ -72,7 +75,7 @@ class App extends Component {
                   <ul> {
                     item.subInputs.map(subItem => (
                       <li key={subItem.id}>
-                        <SubInput delete={this.handleDelete} add={this.handleAddInput} subItem={subItem} item={item} />
+                        <SubInput delete={this.handleDelete} add={this.handleAddInput} subItem={subItem} />
                       </li>
                     ))}
                   </ul>) : null}
