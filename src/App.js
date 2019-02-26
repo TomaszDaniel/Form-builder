@@ -43,7 +43,7 @@ class App extends Component {
         if (data[k].id === item.id) {
           const obj = {
             id: Math.floor(Math.random() * 99999999),
-            // type: option
+            type: option
           }
           if (typeof data[k].subInputs === "object") {
             data[k].subInputs.push(obj)
@@ -52,7 +52,11 @@ class App extends Component {
             data[k].subInputs.push(obj)
           }
         } else {
-          findObj(data[k], option)
+          if (typeof data[k] !== 'string') {
+            console.log(data[k]);
+            findObj(data[k], option)
+          }
+
         }
       }
     }
