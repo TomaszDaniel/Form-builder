@@ -2,7 +2,15 @@ import React, { Component } from 'react';
 import './MainInput.css';
 
 class MainInput extends Component {
-    state = {}
+    state = {
+        option: "text"
+    }
+
+    handleChange = (e) => {
+        this.setState({
+            option: e.target.value
+        })
+    }
 
     handleDelete = (e) => {
         e.preventDefault();
@@ -11,9 +19,10 @@ class MainInput extends Component {
 
     handleAddInput = (e) => {
         e.preventDefault();
-        this.props.add(this.props.item)
+        this.props.add(this.props.item, this.state.option)
     }
     render() {
+        const { option } = this.state
         return (
             <form className="main_input">
                 <div>
@@ -22,9 +31,9 @@ class MainInput extends Component {
                 </div>
                 <div>
                     <label htmlFor="type">Type</label>
-                    <select id="type" name="type">
+                    <select onChange={this.handleChange} value={option} id="type" name="type">
                         <option>Text</option>
-                        <option>Yes / No</option>
+                        <option>Yes/No</option>
                         <option>Number</option>
                     </select>
                 </div>

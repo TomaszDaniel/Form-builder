@@ -36,13 +36,14 @@ class App extends Component {
     })
   }
 
-  handleAddInput = (item) => {
+  handleAddInput = (item, option) => {
     const data = this.state.data;
     const findObj = (data) => {
       for (let k in data) {
         if (data[k].id === item.id) {
           const obj = {
-            id: Math.floor(Math.random() * 99999999)
+            id: Math.floor(Math.random() * 99999999),
+            // type: option
           }
           if (typeof data[k].subInputs === "object") {
             data[k].subInputs.push(obj)
@@ -51,7 +52,7 @@ class App extends Component {
             data[k].subInputs.push(obj)
           }
         } else {
-          findObj(data[k])
+          findObj(data[k], option)
         }
       }
     }
@@ -59,7 +60,6 @@ class App extends Component {
     this.setState({
       data
     })
-
   }
 
   render() {

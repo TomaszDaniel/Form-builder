@@ -1,3 +1,7 @@
 .sub_input{
     height: 250px;
 }
+
+.answer_input{
+    margin-left: 10px;
+}
