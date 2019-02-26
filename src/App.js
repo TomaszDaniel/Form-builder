@@ -21,6 +21,7 @@ class App extends Component {
 
   handleDelete = (item) => {
     console.log(item);
+
     const data = this.state.data;
     for (let i = 0; i < data.length; i++) {
       if (item === data[i]) {
@@ -34,46 +35,31 @@ class App extends Component {
 
   handleAddInput = (item) => {
     const data = this.state.data;
-    for (let i = 0; i < data.length; i++) {
-      if (item === data[i] && data[i].subInputs === undefined) {
-        data[i].subInputs = []
-        data[i].subInputs.push({
-          id: Math.floor(Math.random() * 99999999)
-        })
-      } else if (item === data[i]) {
-        data[i].subInputs.push({
-          id: Math.floor(Math.random() * 99999999)
-        })
-      }
-    }
-
-    for (let i = 0; i < data.length; i++) {
-      if (data[i].subInputs !== undefined) {
-        data[i].subInputs.forEach(sub => {
-          if (sub.id === item.id && sub.subInputs === undefined) {
-            console.log(sub);
-            sub.subInputs = []
-            sub.subInputs.push({
-              id: Math.floor(Math.random() * 99999999)
-            })
-          } else if (item.id === sub.id) {
-            sub.subInputs.push({
-              id: Math.floor(Math.random() * 99999999)
-            })
+    const findValue = (data) => {
+      for (let k in data) {
+        if (data[k].id === item.id) {
+          const obj = {
+            id: Math.floor(Math.random() * 99999999)
           }
-        })
+          if (typeof data[k].subInputs === "object") {
+            data[k].subInputs.push(obj)
+          } else {
+            data[k].subInputs = []
+            data[k].subInputs.push(obj)
+          }
+        } else {
+          findValue(data[k])
+        }
       }
     }
-
-
+    findValue(data)
     this.setState({
       data
     })
+
   }
 
   render() {
-    console.log(this.state);
-
     return (
       <>
         {(this.state.data.length > 0) ? (

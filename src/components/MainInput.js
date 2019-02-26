@@ -11,8 +11,6 @@ class MainInput extends Component {
 
     handleAddInput = (e) => {
         e.preventDefault();
-        console.log(this.props.item);
-
         this.props.add(this.props.item)
     }
     render() {

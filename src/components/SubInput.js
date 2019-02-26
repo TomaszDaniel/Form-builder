@@ -10,13 +10,13 @@ class SubInput extends Component {
     }
 
     handleAddInput = (e) => {
-        // console.log(this.props.item.subInputs);
-        console.log(this.props.subItem);
-
         e.preventDefault();
+        console.log(this.props.subItem);
         this.props.add(this.props.subItem)
     }
     render() {
+        console.log(this.props);
+
         return (
             <>
                 <form className="sub_input">
@@ -46,7 +46,7 @@ class SubInput extends Component {
                     <ul> {
                         this.props.subItem.subInputs.map(item => (
                             <li key={item.id}>
-                                <SubInput delete={this.handleDelete} add={this.handleAddInput} subItem={item} item={this.props.subInput} />
+                                <SubInput delete={this.props.delete} add={this.props.add} subItem={item} item={this.props.subInput} />
                             </li>
                         ))}
                     </ul>) : null}
