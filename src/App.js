@@ -26,7 +26,9 @@ class App extends Component {
         if (data[k].id === item.id) {
           data.splice(k, 1)
         } else {
-          findObjToDelete(data[k])
+          if (typeof data[k] !== 'string') {
+            findObjToDelete(data[k])
+          }
         }
       }
     }
