@@ -3,43 +3,72 @@ import MainInput from './components/MainInput';
 import SubInput from './components/SubInput';
 import './App.css';
 
+import db from "./components/db"
+
 class App extends Component {
   state = {
-    data: []
+    myData: []
+  }
+
+  componentDidMount() {
+    db.table('myData')
+      .toArray()
+      .then((myData) => {
+        this.setState({ myData });
+      });
   }
 
   handleClick = () => {
-    let data = this.state.data
     const obj = {
       id: Math.floor(Math.random() * 99999999)
     }
-    data.push(obj)
-    this.setState({
-      data
-    })
+    db.table('myData')
+      .add(obj)
+      .then((id) => {
+        const newList = [...this.state.myData, Object.assign({}, obj, { id })];
+        this.setState({ myData: newList });
+      });
+
+    // let data = this.state.data
+    // const obj = {
+    //   id: Math.floor(Math.random() * 99999999)
+    // }
+    // data.push(obj)
+    // this.setState({
+    //   data
+    // })
   }
 
   handleDelete = (item) => {
-    const data = this.state.data;
-    const findObjToDelete = (data) => {
-      for (let k in data) {
-        if (data[k].id === item.id) {
-          data.splice(k, 1)
-        } else {
-          if (typeof data[k] !== 'string') {
-            findObjToDelete(data[k])
-          }
-        }
-      }
-    }
-    findObjToDelete(data)
-    this.setState({
-      data
-    })
+    console.log(item);
+
+    db.table('myData')
+      .delete(item.id)
+      .then(() => {
+        const newList = this.state.myData.filter((data) => data.id !== item.id);
+        this.setState({ myData: newList });
+      });
+
+    // const data = this.state.myData;
+    // const findObjToDelete = (data) => {
+    //   for (let k in data) {
+    //     if (data[k].id === item.id) {
+    //       data.splice(k, 1)
+    //     } else {
+    //       if (typeof data[k] !== 'string') {
+    //         findObjToDelete(data[k])
+    //       }
+    //     }
+    //   }
+    // }
+    // findObjToDelete(data)
+    // this.setState({
+    //   myData: data
+    // })
   }
 
   handleAddInput = (item, option) => {
-    const data = this.state.data;
+    const data = this.state.myData;
     const findObj = (data) => {
       for (let k in data) {
         if (data[k].id === item.id) {
@@ -64,19 +93,20 @@ class App extends Component {
     }
     findObj(data)
     this.setState({
-      data
+      myData: data
     })
   }
 
   render() {
+
     return (
       <>
-        {(this.state.data.length > 0) ? (
+        {(this.state.myData.length > 0) ? (
           <ul>{
-            this.state.data.map(item => (
+            this.state.myData.map(item => (
               <li key={item.id}>
                 <MainInput delete={this.handleDelete} add={this.handleAddInput} item={item} />
-
+                {/* add={this.handleAddInput} do gory */}
                 {(item.subInputs !== undefined) ? (
                   <ul> {
                     item.subInputs.map(subItem => (

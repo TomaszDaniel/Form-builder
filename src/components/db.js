@@ -1,11 +1,11 @@
-window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB ||
-    window.msIndexedDB;
+import Dexie from 'dexie';
 
-window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction ||
-    window.msIDBTransaction;
-window.IDBKeyRange = window.IDBKeyRange ||
-    window.webkitIDBKeyRange || window.msIDBKeyRange
+const db = new Dexie('MyDatabase');
 
-if (!window.indexedDB) {
-    window.alert("Your browser doesn't support a stable version of IndexedDB.")
-}
+// Declare tables, IDs and indexes
+db.version(1).stores({
+    myData: '++id'
+});
+
+
+export default db;
