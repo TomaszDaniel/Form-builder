@@ -74,14 +74,24 @@ class App extends Component {
         }
       }
     }
-    db.table('myData')
-      .update(item, {
-        subInputs: []
-      })
-      .then(() => {
-        findObj(data)
-        this.setState({ myData: data });
-      });
+
+    db.myData.where('id').equals(item.id).modify(x => {
+      x.subInputs = [];
+      x.subInputs.push(obj)
+    })
+
+
+    // console.log(x));
+
+
+    // db.table('myData')
+    //   .update(item, {
+    //     subInputs: []
+    //   })
+    //   .then(() => {
+    //     findObj(data)
+    //     this.setState({ myData: data });
+    //   });
 
   }
 
