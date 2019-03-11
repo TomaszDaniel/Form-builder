@@ -1,16 +1,22 @@
-##Description
+
+<h2>Form-builder</h3>
 
 Simple front-end version of form builder that will generate a form for users to fill out.
 
-##Technologies used:
-React
-dexie.js
-CSS
-HTML
+<h3>Technologies used</h3>
 
-##Launch
+<ul>
+<li>React</li>
+<li>Dexie.js</li>
+<li>CSS </li>
+<li>HTML</li>
+</ul>
+
+<h3>Launch</h3>
 
 npm install ---> npm start ---> [http://localhost:3000](http://localhost:3000)
+
+
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
