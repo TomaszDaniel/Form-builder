@@ -1,3 +1,18 @@
+##Description
+
+Simple front-end version of form builder that will generate a form for users to fill out.
+
+##Technologies used:
+React
+dexie.js
+CSS
+HTML
+
+##Launch
+
+npm install ---> npm start ---> [http://localhost:3000](http://localhost:3000)
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
