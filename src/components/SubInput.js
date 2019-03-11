@@ -14,12 +14,12 @@ class SubInput extends Component {
 
     handleDelete = (e) => {
         e.preventDefault();
-        this.props.delete(this.props.subItem);
+        this.props.delete(this.props.subItem, this.props.item.id);
     }
 
     handleAddInput = (e) => {
         e.preventDefault();
-        this.props.add(this.props.subItem, this.state.option)
+        this.props.add(this.props.subItem, this.state.option, this.props.item.id)
     }
     render() {
         const { type } = this.props.subItem
@@ -66,7 +66,7 @@ class SubInput extends Component {
                         <ul> {
                             this.props.subItem.subInputs.map(item => (
                                 <li key={item.id}>
-                                    <SubInput delete={this.props.delete} add={this.props.add} subItem={item} />
+                                    <SubInput delete={this.props.delete} add={this.props.add} subItem={item} item={this.props.item} />
                                 </li>
                             ))}
                         </ul>) : null
